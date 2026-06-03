@@ -1,0 +1,37 @@
+{
+  "name": "@sylva/hermes-memory",
+  "version": "1.0.0",
+  "description": "Hermes Mind Engine â€?Memory evolution: scanning, fossilization, skill forging, code growth, anti-forgetting, knowledge graphs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "node build-wrapper.js",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "scan": "tsx scripts/hermes-cli.ts scan",
+    "cycle": "tsx scripts/hermes-cli.ts cycle"
+  },
+  "dependencies": {
+    "@sylva/types": "workspace:*",
+    "@sylva/utils": "workspace:*",
+    "@sylva/security-shield": "workspace:*",
+    "@sylva/orchestrator": "workspace:*"
+  },
+  "devDependencies": {
+    "@sylva/orchestrator": "workspace:*",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.0"
+  }
+}

@@ -1,0 +1,43 @@
+sequenceDiagram
+    actor U as 用户
+    participant C as Coordinator
+    participant TD as TaskDecomposer
+    participant HM as HermesAdapter
+    participant HMB as Hermes ACP Broker<br/>tcp://127.0.0.1:9001
+    participant CL as ClaudeAdapter
+    participant CLA as Claude API<br/>anthropic.com/v1/messages
+    participant OC as OpenClawAdapter
+    participant OCG as OpenClaw Gateway<br/>ws://127.0.0.1:18679
+    participant RM as ResultMerger
+
+    U->>C: "审查这个函数的 SQL 注入风险"
+    C->>TD: decompose(request)
+    TD->>C: SubTask[] + Plan (1 stage, 3 parallel)
+
+    Note over C: === PARALLEL STAGE ===
+
+    par Hermes 静态分析
+        C->>HM: task_request(sub-1, analyst)
+        HM->>HMB: ACP TASK_ASSIGN
+        Note right of HMB: 延迟 1600ms
+        HMB->>HM: ACP TASK_RESULT
+        HM->>C: task_result(静态分析, score=0.92)
+    and Claude 安全扫描
+        C->>CL: task_request(sub-2, security_scanner)
+        CL->>CLA: HTTP POST
+        Note right of CLA: 延迟 2200ms
+        CLA->>CL: HTTP 200 + SSE
+        CL->>C: task_result(漏洞扫描, score=0.94)
+    and OpenClaw 测试生成
+        C->>OC: task_request(sub-3, tester)
+        OC->>OCG: WebSocket req
+        Note right of OCG: 延迟 1500ms
+        OCG->>OC: WebSocket res
+        OC->>C: task_result(测试用例, score=0.88)
+    end
+
+    Note over C: === MERGE (voting_dedup) ===
+    C->>RM: merge(strategy=voting_dedup)
+    RM->>C: mergedOutput + finalScore=91.3%<br/>conflicts=1 (majority_wins)
+
+    C->>U: 合并审查报告

@@ -1,0 +1,14 @@
+{
+  "state": {
+    "version": "1.1.0-sylva-swarm",
+    "lastScanAt": "2026-05-15T04:18:19.866Z",
+    "totalPatternsFound": 0,
+    "totalSkillsForged": 0,
+    "totalMemoriesFossilized": 0,
+    "knowledgeGraphSize": 0,
+    "growthCyclesCompleted": 3,
+    "swarmAgentCount": 0,
+    "swarmTaskCount": 0
+  },
+  "syncedAt": "2026-05-15T04:18:19.868Z"
+}

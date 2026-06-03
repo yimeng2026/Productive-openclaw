@@ -1,0 +1,631 @@
+{
+  "version": "1.0.0",
+  "totalSkills": 82,
+  "sources": [
+    "workspace/skills/",
+    ".stepfun/skills/"
+  ],
+  "skills": [
+    {
+      "id": "academic-writing",
+      "name": "Academic Writing",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["writePaper", "formatCitation", "generateAbstract"]
+    },
+    {
+      "id": "agent-collab",
+      "name": "Agent Collaboration",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["coordinateAgents", "syncContext", "resolveConflicts"]
+    },
+    {
+      "id": "api-gateway",
+      "name": "API Gateway",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["routeRequests", "rateLimit", "authenticate"]
+    },
+    {
+      "id": "auto-forged",
+      "name": "Auto Forged",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["autoGenerate", "selfImprove"]
+    },
+    {
+      "id": "auto-monitor",
+      "name": "Auto Monitor",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["monitorSystem", "alertOnIssue", "generateReport"]
+    },
+    {
+      "id": "brave-search",
+      "name": "Brave Web Search",
+      "category": "search",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "envVars": ["BRAVE_API_KEY"],
+      "capabilities": ["webSearch", "newsSearch", "imageSearch"]
+    },
+    {
+      "id": "chart",
+      "name": "Chart",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["generateChart", "dataVisualization"]
+    },
+    {
+      "id": "chart-image",
+      "name": "Chart Image",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["generateChartImage", "exportImage"]
+    },
+    {
+      "id": "chart-maker",
+      "name": "Chart Maker",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["createChart", "customizeStyle"]
+    },
+    {
+      "id": "clawhub",
+      "name": "ClawHub",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["searchSkills", "installSkill", "publishSkill"]
+    },
+    {
+      "id": "claw-ops",
+      "name": "Claw Ops",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["systemOps", "deploy", "rollback"]
+    },
+    {
+      "id": "claw-problem-diagnoser",
+      "name": "Claw Problem Diagnoser",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["diagnoseError", "suggestFix", "logAnalysis"]
+    },
+    {
+      "id": "config-diagnose",
+      "name": "Config Diagnose",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["validateConfig", "detectConflict", "suggestOptimization"]
+    },
+    {
+      "id": "cross-platform-agent-orchestration",
+      "name": "Cross Platform Agent Orchestration",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["orchestrateMultiPlatform", "syncState", "migrateAgent"]
+    },
+    {
+      "id": "data-analysis",
+      "name": "Data Analysis",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["analyzeData", "statisticalAnalysis", "generateInsight"]
+    },
+    {
+      "id": "deepseek-reasoner-lite-agent",
+      "name": "DeepSeek Reasoner Lite Agent",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["deepReasoning", "chainOfThought", "problemSolving"]
+    },
+    {
+      "id": "document-converter-pro",
+      "name": "Document Converter Pro",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["convertDocument", "batchConvert", "preserveFormat"]
+    },
+    {
+      "id": "document-pro",
+      "name": "Document Pro",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["processDocument", "extractContent", "mergeDocuments"]
+    },
+    {
+      "id": "download-file",
+      "name": "Download File",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["downloadFile", "verifyChecksum", "resumeDownload"]
+    },
+    {
+      "id": "elite-longterm-memory",
+      "name": "Elite Longterm Memory",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["storeLongTerm", "retrieveMemory", "compressMemory"]
+    },
+    {
+      "id": "emergence-codex-openclaw",
+      "name": "Emergence Codex OpenClaw",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["emergentBehavior", "selfOrganization", "adaptation"]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["codeReview", "refactor", "optimization"]
+    },
+    {
+      "id": "file-manager",
+      "name": "File Manager",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["listFiles", "moveFile", "deleteFile", "searchFile"]
+    },
+    {
+      "id": "find-skills",
+      "name": "Find Skills",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["searchSkill", "recommendSkill", "compareSkills"]
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes Memory System",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["memoryCycle", "patternExtraction", "skillForge"]
+    },
+    {
+      "id": "image-ocr",
+      "name": "Image OCR",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["textRecognition", "documentParsing", "tableExtraction"]
+    },
+    {
+      "id": "kimi-desktop-gateway-policy",
+      "name": "Kimi Desktop Gateway Policy",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["enforcePolicy", "routeTraffic", "auditLog"]
+    },
+    {
+      "id": "kimiim",
+      "name": "Kimi IM",
+      "category": "communication",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["sendMessage", "receiveMessage", "groupChat"]
+    },
+    {
+      "id": "kimi-overload-guardian",
+      "name": "Kimi Overload Guardian",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["monitorLoad", "throttleRequest", "dropLowPriority"]
+    },
+    {
+      "id": "kimi-webbridge-desktop",
+      "name": "Kimi WebBridge Desktop",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["bridgeWebDesktop", "syncState", "forwardEvent"]
+    },
+    {
+      "id": "local-model-swarm",
+      "name": "Local Model Swarm",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["swarmLocalModels", "loadBalance", "failover"]
+    },
+    {
+      "id": "markdown",
+      "name": "Markdown",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["parseMarkdown", "renderMarkdown", "convertToMarkdown"]
+    },
+    {
+      "id": "markdown-converter",
+      "name": "Markdown Converter",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["convertFromMarkdown", "convertToMarkdown", "transformFormat"]
+    },
+    {
+      "id": "math-solver",
+      "name": "Math Solver",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["solveEquation", "simplifyExpression", "proveTheorem"]
+    },
+    {
+      "id": "memory-tiering",
+      "name": "Memory Tiering",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["tierMemory", "promoteDemote", "compressArchive"]
+    },
+    {
+      "id": "mermaid-diagrams",
+      "name": "Mermaid Diagrams",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["generateDiagram", "parseMermaid", "exportSVG"]
+    },
+    {
+      "id": "multi-agent-coordinator",
+      "name": "Multi Agent Coordinator",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["coordinateAgents", "scheduleTasks", "resolveConflicts"]
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "category": "communication",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "envVars": ["NOTION_API_KEY"],
+      "capabilities": ["readPage", "writePage", "createDatabase", "queryDatabase"]
+    },
+    {
+      "id": "ocr-local",
+      "name": "OCR Local",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["localOCR", "offlineRecognition", "fastProcessing"]
+    },
+    {
+      "id": "ocr-python",
+      "name": "OCR Python",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["pythonOCR", "customModel", "batchProcess"]
+    },
+    {
+      "id": "openclaw-diag",
+      "name": "OpenClaw Diagnose",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["diagnoseOpenClaw", "logAnalysis", "suggestFix"]
+    },
+    {
+      "id": "openclaw-intelligent-repair",
+      "name": "OpenClaw Intelligent Repair",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["autoRepair", "predictFailure", "selfHeal"]
+    },
+    {
+      "id": "paddleocr-doc-parsing",
+      "name": "PaddleOCR Doc Parsing",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["docParsing", "layoutAnalysis", "tableExtraction"]
+    },
+    {
+      "id": "paddleocr-text-recognition",
+      "name": "PaddleOCR Text Recognition",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["textRecognition", "multiLanguage", "handwriting"]
+    },
+    {
+      "id": "pandoc",
+      "name": "Pandoc",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "shell",
+      "capabilities": ["convertFormat", "crossFormat", "batchConvert"]
+    },
+    {
+      "id": "physics",
+      "name": "Physics",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["solvePhysics", "simulate", "unitConversion"]
+    },
+    {
+      "id": "powerpoint-pptx",
+      "name": "PowerPoint PPTX",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["readPPTX", "createPPTX", "editSlide"]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["executePython", "installPackage", "runScript"]
+    },
+    {
+      "id": "recursive-self-improvement",
+      "name": "Recursive Self Improvement",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["selfImprove", "recursiveOptimize", "evolveStrategy"]
+    },
+    {
+      "id": "recursive-swarm",
+      "name": "Recursive Swarm",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["recursiveSpawn", "nestedSwarm", "hierarchicalControl"]
+    },
+    {
+      "id": "rsi-loop",
+      "name": "RSI Loop",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["recursiveSelfImprovement", "loopOptimization", "feedbackCycle"]
+    },
+    {
+      "id": "self-monitor",
+      "name": "Self Monitor",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["selfCheck", "healthReport", "autoAlert"]
+    },
+    {
+      "id": "skillhub-preference",
+      "name": "SkillHub Preference",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["preferenceLearning", "recommendation", "personalization"]
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["skillManagement", "skillDiscovery", "skillComposition"]
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "category": "communication",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "envVars": ["SLACK_BOT_TOKEN"],
+      "capabilities": ["sendMessage", "receiveMessage", "createChannel"]
+    },
+    {
+      "id": "sqlite",
+      "name": "SQLite",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["queryDatabase", "createTable", "migrateSchema"]
+    },
+    {
+      "id": "super-ocr",
+      "name": "Super OCR",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "python",
+      "capabilities": ["superResolutionOCR", "enhancedAccuracy", "batchProcess"]
+    },
+    {
+      "id": "sylva-platform",
+      "name": "Sylva Platform",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["platformManagement", "agentOrchestration", "resourceAllocation"]
+    },
+    {
+      "id": "system-auto-repair",
+      "name": "System Auto Repair",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["autoDetectIssue", "autoRepair", "rollback"]
+    },
+    {
+      "id": "telegram-bot",
+      "name": "Telegram Bot",
+      "category": "communication",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "envVars": ["TELEGRAM_BOT_TOKEN"],
+      "capabilities": ["sendMessage", "receiveMessage", "createPoll"]
+    },
+    {
+      "id": "tesseract-ocr",
+      "name": "Tesseract OCR",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "shell",
+      "capabilities": ["textRecognition", "multiLanguage", "layoutPreserve"]
+    },
+    {
+      "id": "time-awareness",
+      "name": "Time Awareness",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["getCurrentTime", "scheduleReminder", "calculateDuration"]
+    },
+    {
+      "id": "weather",
+      "name": "Weather",
+      "category": "other",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["currentWeather", "forecast", "alerts"]
+    },
+    {
+      "id": "web-scraper",
+      "name": "Web Scraper",
+      "category": "communication",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["scrapePage", "extractData", "followLinks"]
+    },
+    {
+      "id": "wolfram-alpha",
+      "name": "Wolfram Alpha",
+      "category": "data",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "envVars": ["WOLFRAM_APP_ID"],
+      "capabilities": ["compute", "solveEquation", "dataQuery"]
+    },
+    {
+      "id": "word-docx",
+      "name": "Word DOCX",
+      "category": "ocr",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["readDOCX", "createDOCX", "editDocument"]
+    },
+    {
+      "id": "worker-safety",
+      "name": "Worker Safety",
+      "category": "ops",
+      "source": "workspace",
+      "runtime": "nodejs",
+      "capabilities": ["monitorWorker", "detectHazard", "enforceSafety"]
+    },
+    {
+      "id": "contract-review",
+      "name": "Contract Review",
+      "category": "other",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["reviewContract", "detectRisk", "suggestClause"]
+    },
+    {
+      "id": "creating-financial-models",
+      "name": "Creating Financial Models",
+      "category": "data",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["buildModel", "forecast", "scenarioAnalysis"]
+    },
+    {
+      "id": "docx",
+      "name": "DOCX",
+      "category": "ocr",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["readDOCX", "createDOCX", "convertFormat"]
+    },
+    {
+      "id": "find-skill",
+      "name": "Find Skill",
+      "category": "other",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["searchSkill", "recommendSkill"]
+    },
+    {
+      "id": "market-research-reports",
+      "name": "Market Research Reports",
+      "category": "data",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["researchMarket", "generateReport", "trendAnalysis"]
+    },
+    {
+      "id": "pdf",
+      "name": "PDF",
+      "category": "ocr",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["readPDF", "createPDF", "extractText"]
+    },
+    {
+      "id": "pptx",
+      "name": "PPTX",
+      "category": "ocr",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["readPPTX", "createPPTX", "extractSlide"]
+    },
+    {
+      "id": "repair-stepclaw",
+      "name": "Repair StepClaw",
+      "category": "ops",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["diagnoseStepClaw", "repair", "restore"]
+    },
+    {
+      "id": "skill-creator",
+      "name": "Skill Creator",
+      "category": "other",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["createSkill", "validateSkill", "publishSkill"]
+    },
+    {
+      "id": "xlsx",
+      "name": "XLSX",
+      "category": "data",
+      "source": "stepfun",
+      "runtime": "nodejs",
+      "capabilities": ["readXLSX", "createXLSX", "calculateFormula"]
+    }
+  ]
+}

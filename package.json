@@ -1,0 +1,17 @@
+{
+  "name": "productive-openclaw",
+  "version": "2.0.0",
+  "description": "OpenClaw 扩展架构与优化补丁 - SRIA递归推理 + 多Agent编排 + 多Provider统一适配",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "dev": "bash scripts/dev-start.sh",
+    "build": "bash scripts/build.sh",
+    "start:py": "cd sria-smim && python -m sria_smim",
+    "start:ts": "cd platform-core && npm run dev",
+    "test": "npm run test:ts && npm run test:py",
+    "test:ts": "cd platform-core && npm test",
+    "test:py": "cd sria-smim && python -m pytest tests/ -v",
+    "patch:apply": "python -m patches.patcher apply",
+    "patch:revert": "python -m patches.patcher revert"
+  }
+}

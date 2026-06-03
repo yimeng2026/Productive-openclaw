@@ -1,0 +1,46 @@
+# ===== Dependencies =====
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+*.egg
+
+# ===== Build Outputs =====
+dist/
+build/
+*.tsbuildinfo
+.sria_smim/
+
+# ===== Environment & Secrets =====
+.env
+.env.*
+!.env.example
+*.local
+
+# ===== Database =====
+*.db
+*.sqlite
+*.sqlite3
+
+# ===== Logs =====
+logs/
+*.log
+npm-debug.log*
+pip-log.txt
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Backups (created by patcher) =====
+*.backup
+backups/

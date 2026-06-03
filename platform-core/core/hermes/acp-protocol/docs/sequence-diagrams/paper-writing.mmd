@@ -1,0 +1,42 @@
+sequenceDiagram
+    actor U as 用户
+    participant C as Coordinator
+    participant TD as TaskDecomposer
+    participant OC as OpenClawAdapter
+    participant OCG as OpenClaw Gateway<br/>ws://127.0.0.1:18679
+    participant CL as ClaudeAdapter
+    participant CLA as Claude API<br/>anthropic.com/v1/messages
+    participant HM as HermesAdapter
+    participant HMB as Hermes ACP Broker<br/>tcp://127.0.0.1:9001
+    participant RM as ResultMerger
+
+    U->>C: "帮我写一篇关于量子计算的论文"
+    C->>TD: decompose(request)
+    TD->>C: SubTask[] + Plan (3 stages, sequential)
+
+    Note over C: === STAGE 1: Research ===
+    C->>OC: task_request(sub-1, researcher)
+    OC->>OCG: WebSocket req<br/>fn=sessions_spawn, model=kimi-latest
+    Note right of OCG: 模拟延迟 1200ms
+    OCG->>OC: WebSocket res<br/>status=ok, result=研究资料
+    OC->>C: task_result(研究资料, score=0.91)
+
+    Note over C: === STAGE 2: Draft ===
+    C->>CL: task_request(sub-2, writer)<br/>deps={sub-1}
+    CL->>CLA: HTTP POST<br/>model=claude-3-opus, max_tokens=4096
+    Note right of CLA: 模拟延迟 2500ms
+    CLA->>CL: HTTP 200 + SSE<br/>content=完整论文
+    CL->>C: task_result(论文草稿, score=0.93)
+
+    Note over C: === STAGE 3: Review ===
+    C->>HM: task_request(sub-3, reviewer)<br/>deps={sub-2}
+    HM->>HMB: ACP TASK_ASSIGN<br/>version=acp/2.1
+    Note right of HMB: 模拟延迟 1800ms
+    HMB->>HM: ACP TASK_RESULT<br/>verdict=APPROVED_WITH_REVISIONS
+    HM->>C: task_result(审查意见, score=0.87)
+
+    Note over C: === MERGE ===
+    C->>RM: merge(strategy=sequential_append)
+    RM->>C: mergedOutput + finalScore=90.3%
+
+    C->>U: 完整论文 + 审查意见

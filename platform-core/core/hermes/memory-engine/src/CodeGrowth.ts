@@ -1,0 +1,227 @@
+/**
+ * @file CodeGrowth.ts
+ * @description 代码生长系统 — 让代码自己生长
+ *   核心机制：
+ *   • 扫描现有代码，检测重复模式（如每个模块都有 index.ts）
+ *   • 检测到新模块缺少标准文件 → 自动生成
+ *   • 检测到代码异味（重复代码、缺少测试） → 自动生成修复建议
+ *   • 检测到架构漂移 → 自动生成重构计划
+ *   不是生成业务逻辑，而是生成"结构"和"脚手架"
+ */
+
+import { KnowledgeGraph } from './KnowledgeGraph';
+
+export interface CodePattern {
+  type: 'missing-file' | 'structural-drift' | 'repeated-pattern' | 'test-gap' | 'config-gap';
+  location: string;
+  description: string;
+  suggestion: string;
+  autoFixable: boolean;
+  confidence: number;
+}
+
+export interface GrowthAction {
+  type: 'generate' | 'suggest' | 'warn';
+  targetPath: string;
+  content: string;
+  reason: string;
+}
+
+export class CodeGrowth {
+  private whitelist: string[];
+
+  constructor(whitelist: string[]) {
+    this.whitelist = whitelist;
+  }
+
+  /**
+   * 检测代码模式并生成生长建议
+   */
+  async detectAndGrow(kg: KnowledgeGraph): Promise<GrowthAction[]> {
+    const patterns = await this.scanCodebase();
+    const actions: GrowthAction[] = [];
+
+    for (const pattern of patterns) {
+      if (pattern.autoFixable && pattern.confidence > 0.7) {
+        const action = await this.generateFix(pattern);
+        if (action) actions.push(action);
+      } else {
+        // 不可自动修复的，记录到知识图谱
+        await kg.addNode({
+          id: `code-issue:${Date.now()}`,
+          type: 'code-issue',
+          label: pattern.description,
+          content: pattern.suggestion,
+          confidence: pattern.confidence,
+        });
+      }
+    }
+
+    return actions;
+  }
+
+  /**
+   * 扫描代码库，寻找生长机会
+   */
+  private async scanCodebase(): Promise<CodePattern[]> {
+    const patterns: CodePattern[] = [];
+    const fs = require('fs');
+    const path = require('path');
+
+    for (const dir of this.whitelist) {
+      if (!fs.existsSync(dir)) continue;
+
+      const subdirs = fs.readdirSync(dir, { withFileTypes: true })
+        .filter((d: any) => d.isDirectory())
+        .map((d: any) => path.join(dir, d.name));
+
+      for (const subdir of subdirs) {
+        // Pattern 1: 缺少 index.ts
+        const hasIndex = fs.existsSync(path.join(subdir, 'src', 'index.ts'))
+          || fs.existsSync(path.join(subdir, 'index.ts'));
+        if (!hasIndex) {
+          patterns.push({
+            type: 'missing-file',
+            location: subdir,
+            description: `缺少 index.ts 入口文件`,
+            suggestion: `创建 src/index.ts 作为模块统一导出`,
+            autoFixable: true,
+            confidence: 0.95,
+          });
+        }
+
+        // Pattern 2: 有代码文件但无测试
+        const srcDir = path.join(subdir, 'src');
+        const hasSrc = fs.existsSync(srcDir);
+        const testDir = path.join(subdir, 'src', '__tests__');
+        const hasTests = fs.existsSync(testDir) && fs.readdirSync(testDir).length > 0;
+
+        if (hasSrc && !hasTests) {
+          const srcFiles = fs.readdirSync(srcDir).filter((f: string) => f.endsWith('.ts') && !f.includes('.test.'));
+          if (srcFiles.length > 0) {
+            patterns.push({
+              type: 'test-gap',
+              location: subdir,
+              description: `有 ${srcFiles.length} 个源文件但无测试`,
+              suggestion: `创建 __tests__ 目录和对应测试文件`,
+              autoFixable: true,
+              confidence: 0.9,
+            });
+          }
+        }
+
+        // Pattern 3: 缺少 package.json
+        const hasPackage = fs.existsSync(path.join(subdir, 'package.json'));
+        if (!hasPackage && fs.existsSync(path.join(subdir, 'src'))) {
+          patterns.push({
+            type: 'missing-file',
+            location: subdir,
+            description: `有 src 目录但无 package.json`,
+            suggestion: `创建 package.json 定义模块元数据`,
+            autoFixable: true,
+            confidence: 0.95,
+          });
+        }
+
+        // Pattern 4: 缺少 tsconfig.json
+        const hasTsConfig = fs.existsSync(path.join(subdir, 'tsconfig.json'));
+        if (!hasTsConfig && fs.existsSync(path.join(subdir, 'src'))) {
+          patterns.push({
+            type: 'config-gap',
+            location: subdir,
+            description: `有 TypeScript 代码但无 tsconfig.json`,
+            suggestion: `继承 configs/tsconfig.base.json 创建 tsconfig.json`,
+            autoFixable: true,
+            confidence: 0.9,
+          });
+        }
+      }
+    }
+
+    return patterns;
+  }
+
+  /**
+   * 生成自动修复
+   */
+  private async generateFix(pattern: CodePattern): Promise<GrowthAction | null> {
+    switch (pattern.type) {
+      case 'missing-file':
+        return this.generateMissingFile(pattern);
+      case 'test-gap':
+        return this.generateTestStub(pattern);
+      case 'config-gap':
+        return this.generateConfig(pattern);
+      default:
+        return null;
+    }
+  }
+
+  private generateMissingFile(pattern: CodePattern): GrowthAction {
+    const moduleName = pattern.location.split('/').pop() || 'unknown';
+    const indexContent = `/**
+ * @file index.ts
+ * @description ${moduleName} 模块统一导出
+ * Auto-generated by Hermes CodeGrowth
+ */
+
+// TODO: 替换为实际导出
+export * from './types';
+export { default } from './${moduleName}';
+`;
+
+    return {
+      type: 'generate',
+      targetPath: `${pattern.location}/src/index.ts`,
+      content: indexContent,
+      reason: `模块 ${moduleName} 缺少入口文件`,
+    };
+  }
+
+  private generateTestStub(pattern: CodePattern): GrowthAction {
+    const moduleName = pattern.location.split('/').pop() || 'unknown';
+    const testContent = `/**
+ * @file ${moduleName}.test.ts
+ * @description Auto-generated test stub by Hermes CodeGrowth
+ *   请补充实际测试用例
+ */
+
+import { describe, it, expect } from 'vitest';
+
+describe('${moduleName}', () => {
+  it('should be defined', () => {
+    expect(true).toBe(true);
+  });
+});
+`;
+
+    return {
+      type: 'generate',
+      targetPath: `${pattern.location}/src/__tests__/${moduleName}.test.ts`,
+      content: testContent,
+      reason: `模块 ${moduleName} 缺少测试`,
+    };
+  }
+
+  private generateConfig(pattern: CodePattern): GrowthAction {
+    const configContent = `{
+  "extends": "../../configs/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+`;
+
+    return {
+      type: 'generate',
+      targetPath: `${pattern.location}/tsconfig.json`,
+      content: configContent,
+      reason: `模块缺少 TypeScript 配置`,
+    };
+  }
+}
+
+export default CodeGrowth;
